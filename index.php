@@ -1,6 +1,5 @@
 <?php 
-  $link = mysql_connect('localhost:3306', 'massiro', 'tina1129');
-  //$link = mysql_connect('localhost:8889', 'root', 'root');
+  $link = mysql_connect('', '', '');
     
     if (!$link) {
       die('接続失敗です。'.mysql_error());
