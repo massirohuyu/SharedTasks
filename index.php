@@ -1,3 +1,33 @@
+<?php 
+    $link = mysql_connect('', '', '');
+
+    if (!$link) {
+      die('接続失敗です。'.mysql_error());
+    }
+    
+    $db_selected = mysql_select_db('shared_tasks', $link);
+    if (!$db_selected){
+      die('データベース選択失敗です。'.mysql_error());
+    }
+    
+    mysql_set_charset('utf8');
+    
+    if($_POST){
+      $this_name = '';
+      if($_POST['person'] == 0){
+        $this_name = 'せいの';
+      }else if($_POST['person'] == 1){
+        $this_name = 'にしむら';
+      }
+      $sql = "INSERT INTO tasklist (id, name, person, checked) VALUES (".time().", '".$_POST['name']."', '".$this_name."', 0)";
+      $result_flag = mysql_query($sql);
+      if (!$result_flag) {
+        die('INSERTクエリーが失敗しました。'.mysql_error());
+      }
+      header("Location: {$_SERVER['PHP_SELF']}");
+      exit;
+    }
+?>
 <html lang="ja">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -53,35 +83,7 @@
     </p>
   </form>
   <?php 
-    $link = mysql_connect('localhost:3306', 'massiro', 'tina1129');
-    //$link = mysql_connect('localhost:8889', 'root', 'root');
-    
-    if (!$link) {
-      die('接続失敗です。'.mysql_error());
-    }
-    
-    $db_selected = mysql_select_db('shared_tasks', $link);
-    if (!$db_selected){
-      die('データベース選択失敗です。'.mysql_error());
-    }
-    
-    mysql_set_charset('utf8');
-    
-    if($_POST){
-      $this_name = '';
-      if($_POST['person'] == 0){
-        $this_name = 'せいの';
-      }else if($_POST['person'] == 1){
-        $this_name = 'にしむら';
-      }
-      $sql = "INSERT INTO tasklist (id, name, person, checked) VALUES (".time().", '".$_POST['name']."', '".$this_name."', 0)";
-      $result_flag = mysql_query($sql);
-      if (!$result_flag) {
-        die('INSERTクエリーが失敗しました。'.mysql_error());
-      }
-    }
-    
-    
+  
     $result = mysql_query('SELECT id,name,person,checked FROM tasklist;');
     if (!$result) {
       die('クエリーが失敗しました。'.mysql_error());
