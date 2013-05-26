@@ -19,7 +19,7 @@
       }else if($_POST['person'] == 1){
         $this_name = 'にしむら';
       }
-      $sql = "INSERT INTO tasklist (id, name, person, checked) VALUES (".time().", '".$_POST['name']."', '".$this_name."', 0)";
+      $sql = "INSERT INTO tasklist (name, person, checked) VALUES ('".$_POST['name']."', '".$this_name."', 0)";
       $result_flag = mysql_query($sql);
       if (!$result_flag) {
         die('INSERTクエリーが失敗しました。'.mysql_error());
