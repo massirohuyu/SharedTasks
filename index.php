@@ -1,16 +1,12 @@
-<?php 
-  $link = mysql_connect('', '', '');
+<?php
+    $mysqli = new mysqli('localhost', 'root', '1tum0n0', 'shared_tasks');
     
-    if (!$link) {
-      die('接続失敗です。'.mysql_error());
+    if ($mysqli->connect_error) {
+        die('Connect Error (' . $mysqli->connect_errno . ') '
+            . $mysqli->connect_error);
     }
-    
-    $db_selected = mysql_select_db('shared_tasks', $link);
-    if (!$db_selected){
-      die('データベース選択失敗です。'.mysql_error());
-    }
-    
-    mysql_set_charset('utf8');
+
+    $mysqli->set_charset('utf8');
     
     if($_POST){
       $this_name = '';
@@ -19,10 +15,14 @@
       }else if($_POST['person'] == 1){
         $this_name = 'にしむら';
       }
-      $sql = "INSERT INTO tasklist (name, person, checked) VALUES ('".$_POST['name']."', '".$this_name."', 0)";
-      $result_flag = mysql_query($sql);
+
+      $stmt = $mysqli->prepare("INSERT INTO tasklist (name, person, checked) VALUES (?, ?, ?)");
+      $checked = 0;
+      $stmt->bind_param('ssi', $_POST['name'], $this_name, $checked);
+      $result_flag = $stmt->execute();
+
       if (!$result_flag) {
-        die('INSERTクエリーが失敗しました。'.mysql_error());
+        die('INSERTクエリーが失敗しました。'.mysqli_error());
       }
       header("Location: {$_SERVER['PHP_SELF']}");
       exit;
@@ -84,13 +84,13 @@
   </form>
   <?php 
   
-    $result = mysql_query('SELECT id,name,person,checked FROM tasklist;');
+    $result = $mysqli->query('SELECT id,name,person,checked FROM tasklist;');
     if (!$result) {
       die('クエリーが失敗しました。'.mysql_error());
     }
     
     print('<ul id="mainList">');
-    while ($row = mysql_fetch_assoc($result)) {
+    while ($row = $result->fetch_assoc()) {
       print('<li>');
       print('<input type="checkbox"');
       if($row['checked'] == 1){
@@ -104,7 +104,7 @@
     }
     print('</ul>');
     
-    $close_flag = mysql_close($link);
+    $close_flag = $mysqli->close();
     if (!$close_flag){
       print('<p>切断に失敗しました。</p>');
     }
