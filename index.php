@@ -1,5 +1,5 @@
 <?php
-    $mysqli = new mysqli('localhost', 'root', '1tum0n0', 'shared_tasks');
+    $mysqli = new mysqli('inputhostnamehere', 'inputusernamehere', 'inputpasswordhere', 'shared_tasks');
     
     if ($mysqli->connect_error) {
         die('Connect Error (' . $mysqli->connect_errno . ') '
