@@ -69,6 +69,9 @@
         margin-top: 50px;
       }
     </style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    
   </head>
   <body>
   <form  action="./" method="post">
@@ -92,7 +95,7 @@
     print('<ul id="mainList">');
     while ($row = $result->fetch_assoc()) {
       print('<li>');
-      print('<input type="checkbox"');
+      print('<input type="checkbox" class="task"');
       if($row['checked'] == 1){
         print(' checked');
       }
@@ -100,6 +103,8 @@
       print(' value="1">');
       print($row['name']);
       print('（'.$row['person'].'）');
+      print('<input type="submit" value="削除" class="delete"');
+      print(' name="'.$row['id'].'" >');
       print('</li>');
     }
     print('</ul>');
@@ -110,5 +115,6 @@
     }
     
   ?>
+  <p style="margin-top:30px">※タスクのチェックと削除ができるようになりました※</p>
   </body>
 </html>
