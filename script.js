@@ -17,7 +17,6 @@ $(document).ready(function(){
       },
       success: function(data){
         $this.prop('disabled',false);
-        console.log(data);
       }
     });
   });
@@ -36,7 +35,6 @@ $(document).ready(function(){
         'id': thisId
       },
       success: function(data){
-        console.log(data);
         $this.closest('li').remove();
       }
     });

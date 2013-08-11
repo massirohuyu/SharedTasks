@@ -1,33 +1,7 @@
 <?php
-    $mysqli = new mysqli('inputhostnamehere', 'inputusernamehere', 'inputpasswordhere', 'shared_tasks');
-    
-    if ($mysqli->connect_error) {
-        die('Connect Error (' . $mysqli->connect_errno . ') '
-            . $mysqli->connect_error);
-    }
-
-    $mysqli->set_charset('utf8');
-    
-    if($_POST){
-      $this_name = '';
-      if($_POST['person'] == 0){
-        $this_name = 'せいの';
-      }else if($_POST['person'] == 1){
-        $this_name = 'にしむら';
-      }
-
-      $stmt = $mysqli->prepare("INSERT INTO tasklist (name, person, checked) VALUES (?, ?, ?)");
-      $checked = 0;
-      $stmt->bind_param('ssi', $_POST['name'], $this_name, $checked);
-      $result_flag = $stmt->execute();
-
-      if (!$result_flag) {
-        die('INSERTクエリーが失敗しました。'.mysqli_error());
-      }
-      header("Location: {$_SERVER['PHP_SELF']}");
-      exit;
-    }
+    include_once 'get_all_task.inc';
 ?>
+
 <html lang="ja">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -36,6 +10,7 @@
     <meta http-equiv="Content-Style-Type" content="text/css">
     <title>Shared Tasks</title>
     <meta name="robots" content="noindex">
+      <!--
     <style type="text/css">
       * {
         margin: 0;
@@ -69,8 +44,11 @@
         margin-top: 50px;
       }
     </style>
+    -->
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/script.js"></script>
     
   </head>
   <body>
@@ -82,39 +60,18 @@
           <option value="0">せいの</option>
           <option value="1">にしむら</option>
         </select>
-      <input type="submit" value="登録">
+      <input type="submit" class="btn" value="登録">
     </p>
   </form>
-  <?php 
-  
-    $result = $mysqli->query('SELECT id,name,person,checked FROM tasklist;');
-    if (!$result) {
-      die('クエリーが失敗しました。'.mysql_error());
-    }
-    
-    print('<ul id="mainList">');
-    while ($row = $result->fetch_assoc()) {
-      print('<li>');
-      print('<input type="checkbox" class="task"');
-      if($row['checked'] == 1){
-        print(' checked');
-      }
-      print(' name="'.$row['id'].'"');
-      print(' value="1">');
-      print($row['name']);
-      print('（'.$row['person'].'）');
-      print('<input type="submit" value="削除" class="delete"');
-      print(' name="'.$row['id'].'" >');
-      print('</li>');
-    }
-    print('</ul>');
-    
-    $close_flag = $mysqli->close();
-    if (!$close_flag){
-      print('<p>切断に失敗しました。</p>');
-    }
-    
-  ?>
+  <ul id="mainList">
+  <?php foreach($result_set as $row1): ?>
+      <li>
+          <input type="checkbox" class="task"<?php if($row1['checked'] == 1): ?> checked <?php endif; ?> name="<?php echo $row1['id']; ?>" value="1">
+          <?php print($row1['name']); ?>（<?php echo $row1['person']; ?>）
+          <input type="submit" value="削除" class="delete btn" name="<?php echo $row1['id']; ?>">
+      </li>
+  <?php endforeach; ?>
+  </ul>
   <p style="margin-top:30px">※タスクのチェックと削除ができるようになりました※</p>
   </body>
 </html>

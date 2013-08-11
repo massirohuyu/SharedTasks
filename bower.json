@@ -1,0 +1,16 @@
+{
+  "name": "SharedTasks",
+  "version": "0.0.1",
+  "main": "script.js",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "bootstrap": "git://github.com/twbs/bootstrap.git#~3.0.0-rc1"
+  }
+}

@@ -1,6 +1,8 @@
 #DROP DATABASE shared_tasks;
 #CREATE DATABASE shared_tasks;
 
+USE shared_tasks;
+
 DROP TABLE tasklist;
 
 CREATE TABLE tasklist
