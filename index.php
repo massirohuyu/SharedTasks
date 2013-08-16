@@ -8,6 +8,7 @@ function h($str)
 
 ?>
 
+<!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -16,6 +17,7 @@ function h($str)
     <meta http-equiv="Content-Style-Type" content="text/css">
     <title>Shared Tasks</title>
     <meta name="robots" content="noindex">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--
   <style type="text/css">
     * {
@@ -51,22 +53,27 @@ function h($str)
     }
   </style>
   -->
+    <link href="/bower_components/normalize-css/normalize.css" rel="stylesheet">
     <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <script type="text/javascript" src="/bower_components/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/script.js"></script>
 
 </head>
 <body>
-<form action="./" method="post">
-    <p>
-        <label for="newtaskname">追加する項目:</label><input type="text" width="100" name="name" value="" id="newtaskname">
+<form class="form-inline" role="form" action="./" method="post">
+    <div class="form-group">
+        <label class="sr-only" for="newtaskname">追加する項目:</label>
+        <input type="text" class="form-control" name="name" value="" id="newtaskname" placeholder="Enter taskname">
+    </div>
+    <div class="form-group">
         <label for="newtaskowner">担当:</label>
-        <select name="person" id="newtaskowner">
+        <select class="form-control" name="person" id="newtaskowner">
             <option value="0">せいの</option>
             <option value="1">にしむら</option>
         </select>
-        <input type="submit" class="btn" value="登録">
-    </p>
+        <input type="submit" class="btn btn-default form-control" value="登録">
+    </div>
 </form>
 <ul id="mainList">
     <?php foreach ($result_set as $row1): ?>
