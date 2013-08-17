@@ -57,25 +57,29 @@ function h($str)
 <!--    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>-->
 <!--    <script type="text/javascript" src="/script.js"></script>-->
 
+   <!--
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/css/bootstrap.min.css">
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="script.js"></script>
+    -->
+    <link href="/bower_components/normalize-css/normalize.css" rel="stylesheet">
+    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
 
 </head>
 <body>
-<form class="form-inline" role="form" action="./" method="post">
+<form class="form" role="form" action="./" method="post">
     <div class="form-group">
-        <label class="sr-only" for="newtaskname">追加する項目:</label>
-        <input type="text" class="form-control" name="name" value="" id="newtaskname" placeholder="Enter taskname">
-    </div>
-    <div class="form-group">
-        <label for="newtaskowner">担当:</label>
-        <select class="form-control" name="person" id="newtaskowner">
-            <option value="0">せいの</option>
-            <option value="1">にしむら</option>
-        </select>
-        <input type="submit" class="btn btn-default form-control" value="登録">
+        <label class="sr-only" for="newtaskname">
+            <input type="text" class="form-control" name="name" value="" id="newtaskname" placeholder="Enter taskname">
+        </label>
+        <label class="sr-only" for="newtaskowner">
+            <select class="form-control" name="person" id="newtaskowner">
+                <option value="0">せいの</option>
+                <option value="1">にしむら</option>
+            </select>
+        </label>
+        <input type="submit" class="btn btn-default" value="登録">
     </div>
 </form>
 <ul id="mainList">
@@ -83,11 +87,22 @@ function h($str)
         <li>
             <input type="checkbox" class="task"<?php if ($row1['checked'] == 1): ?> checked <?php endif ?>
                    name="<?= $row1['id'] ?>" value="1">
-            <?= h($row1['name']) ?>（<?= h($row1['person']) ?>）
+            <?= h($row1['name']) ?>
+            <label class="sr-only" for="newtaskowner">
+                <select class="form-control" name="person" id="newtaskowner">
+                    <option value="0" <?php if('せいの'==$row1['person']): ?>selected<?php endif ?> >せいの</option>
+                    <option value="1" <?php if('にしむら'==$row1['person']): ?>selected<?php endif ?> >にしむら</option>
+                </select>
+            </label>
             <input type="submit" value="削除" class="delete btn" name="<?= $row1['id'] ?>">
         </li>
     <?php endforeach ?>
 </ul>
 <p style="margin-top:30px">※タスクのチェックと削除ができるようになりました※</p>
+
+<script type="text/javascript" src="/bower_components/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="/script.js"></script>
+
 </body>
 </html>
