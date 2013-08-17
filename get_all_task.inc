@@ -39,6 +39,7 @@
         die('切断に失敗しました。'.mysqli_error());
     }
 
+    $result_set = array();
     while ($row = $result->fetch_assoc()){
         $result_set[] = $row;
     }
