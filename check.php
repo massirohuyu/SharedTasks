@@ -1,12 +1,6 @@
 <?php
-    $mysqli = new mysqli('inputhostnamehere', 'inputusernamehere', 'inputpasswordhere', 'shared_tasks');
     
-    if ($mysqli->connect_error) {
-        die('Connect Error (' . $mysqli->connect_errno . ') '
-            . $mysqli->connect_error);
-    }
-
-    $mysqli->set_charset('utf8');
+    include_once 'connect_db.inc';
     
     if($_POST){
       $stmt = $mysqli->prepare("UPDATE tasklist SET checked=? WHERE id=?");
@@ -22,7 +16,7 @@
     
     $close_flag = $mysqli->close();
     if (!$close_flag){
-      print('<p>切断に失敗しました。</p>');
+      die('切断に失敗しました。'.mysqli_error());
     }
     
     echo 'ok';

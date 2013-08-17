@@ -51,9 +51,14 @@ function h($str)
     }
   </style>
   -->
-    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/script.js"></script>
+<!--    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">-->
+<!--    <script type="text/javascript" src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>-->
+<!--    <script type="text/javascript" src="/script.js"></script>-->
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/css/bootstrap.min.css">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="script.js"></script>
 
 </head>
 <body>
