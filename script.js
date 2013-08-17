@@ -17,6 +17,11 @@ $(document).ready(function(){
       },
       success: function(data){
         $this.prop('disabled',false);
+        if ( 1 === thisChecked ) {
+          $this.closest('li').find('.task-name').addClass('task-completed');
+        } else {
+            $this.closest('li').find('.task-name').removeClass('task-completed');
+        }
       }
     });
   });
