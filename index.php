@@ -1,4 +1,5 @@
 <?php
+
 include_once 'get_all_task.inc';
 
 function h($str)
@@ -62,24 +63,26 @@ function h($str)
 
 </head>
 <body>
+<?= $my_name ?>さんこんにちは。
 <form action="./" method="post">
     <p>
         <label for="newtaskname">追加する項目:</label><input type="text" width="100" name="name" value="" id="newtaskname">
         <label for="newtaskowner">担当:</label>
         <select name="person" id="newtaskowner">
-            <option value="0">せいの</option>
-            <option value="1">にしむら</option>
+          <?php while( list( $key, $val ) = each( $userlist_set )): ?>
+            <option value="<?= $key ?>" <?php if ($key == $my_id): ?> selected <?php endif ?>><?= $val ?></option>
+          <?php endwhile ?>
         </select>
         <input type="submit" class="btn" value="登録">
     </p>
 </form>
 <ul id="mainList">
-    <?php foreach ($result_set as $row1): ?>
+    <?php foreach ($result_set as $row4): ?>
         <li>
-            <input type="checkbox" class="task"<?php if ($row1['checked'] == 1): ?> checked <?php endif ?>
-                   name="<?= $row1['id'] ?>" value="1">
-            <?= h($row1['name']) ?>（<?= h($row1['person']) ?>）
-            <input type="submit" value="削除" class="delete btn" name="<?= $row1['id'] ?>">
+            <input type="checkbox" class="task"<?php if ($row4['checked'] == 1): ?> checked <?php endif ?>
+                   name="<?= $row4['id'] ?>" value="1">
+            <?= h($row4['name']) ?>（<?= h($userlist_set[$row4['person']]) ?>）
+            <input type="submit" value="削除" class="delete btn" name="<?= $row4['id'] ?>">
         </li>
     <?php endforeach ?>
 </ul>

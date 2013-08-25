@@ -3,7 +3,7 @@
     include_once 'connect_db.inc';
     
     if($_POST){
-      $stmt = $mysqli->prepare("DELETE FROM tasklist WHERE id=?");
+      $stmt = $mysqli->prepare('DELETE FROM task WHERE id=?');
       $stmt->bind_param('i', $_POST['id']);
       $result_flag = $stmt->execute();
 

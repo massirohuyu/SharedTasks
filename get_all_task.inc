@@ -8,39 +8,34 @@
  */
     
     include_once 'connect_db.inc';
+    include_once 'user_auth.inc';
 
     if($_POST){
-        $this_name = '';
-        if($_POST['person'] == 0){
-            $this_name = 'せいの';
-        }else if($_POST['person'] == 1){
-            $this_name = 'にしむら';
-        }
-
-        $stmt = $mysqli->prepare("INSERT INTO tasklist (name, person, checked) VALUES (?, ?, ?)");
-        $checked = 0;
-        $stmt->bind_param('ssi', $_POST['name'], $this_name, $checked);
-        $result_flag = $stmt->execute();
-
-        if (!$result_flag) {
-            die('INSERTクエリーが失敗しました。'.mysqli_error());
-        }
-        header("Location: {$_SERVER['PHP_SELF']}");
-        exit;
+        include_once 'add_new_task.inc';
+    }
+    
+    $userlist = $mysqli->query('SELECT id,name FROM user;');
+    if (!$userlist) {
+        die('複数のユーザ情報取得クエリーが失敗しました。'.mysqli_error());
     }
 
-    $result = $mysqli->query('SELECT id,name,person,checked FROM tasklist;');
+    $result = $mysqli->query('SELECT id,name,person,checked FROM task;');
     if (!$result) {
-        die('クエリーが失敗しました。'.mysqli_error());
+        die('タスクリストの取得クエリーが失敗しました。'.mysqli_error());
     }
 
     $close_flag = $mysqli->close();
     if (!$close_flag){
         die('切断に失敗しました。'.mysqli_error());
     }
-
+    
+    $userlist_set = array();
+    while ($row1 = $userlist->fetch_assoc()){
+        $userlist_set[$row1['id']] = $row1['name'];
+    }
+    
     $result_set = array();
-    while ($row = $result->fetch_assoc()){
-        $result_set[] = $row;
+    while ($row2 = $result->fetch_assoc()){
+        $result_set[] = $row2;
     }
 ?>

@@ -3,7 +3,7 @@
     include_once 'connect_db.inc';
     
     if($_POST){
-      $stmt = $mysqli->prepare("UPDATE tasklist SET checked=? WHERE id=?");
+      $stmt = $mysqli->prepare('UPDATE task SET checked=? WHERE id=?');
       $stmt->bind_param('ii', $_POST['checked'], $_POST['id']);
       $result_flag = $stmt->execute();
 
