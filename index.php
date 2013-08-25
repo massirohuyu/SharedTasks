@@ -19,6 +19,7 @@ function h($str)
     <meta name="robots" content="noindex">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="/bower_components/chosen/public/chosen.min.css" rel="stylesheet" media="screen">
     <style>
         body {
             padding: 10px;
@@ -30,10 +31,10 @@ function h($str)
             padding-left: 0px;
         }
         li.task {
-            border-top-style: solid;
-            border-top-width: 1px;
-            border-left-style: none;
-            border-right-style: none;
+            border-top-style:    solid;
+            border-top-width:    1px;
+            border-left-style:   none;
+            border-right-style:  none;
             border-bottom-style: none;
             border-radius: 0px;
             margin: 0px;
@@ -71,34 +72,36 @@ function h($str)
     </div>
 
     <ul id="mainList" class="accordion" id="accordion3">
-        <?php foreach ($result_set as $row1): ?>
-            <li class="task list-unstyled accordion-group">
-                <div class="task-header accordion-heading">
-                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapse<?= $row1['id'] ?>">
-                        <input type="checkbox" class="task" <?php if ($row1['checked'] == 1): ?>checked <?php endif ?>name="<?= $row1['id'] ?>" value="1">
-                        <span class="task-name<?php if ($row1['checked'] == 1): ?> task-completed<?php endif ?>"><?= h($row1['name']) ?></span>
-                    </a>
-                </div>
-                <div id="collapse<?= $row1['id'] ?>" class="task-descreption accordion-body collapse">
-                    <div class="task-description accordion-inner">
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <label for="closingdate" class="control-label">〆切</label>
-                                <div class="">
-                                    <input type="datetime-local" class="form-control" id="closingdate" placeholder="Closing date">
-                                </div>
-                                <label for="owner" class="control-label">担当</label>
-                                <select class="selectpicker">
+<?php foreach ($result_set as $row1): ?>
+        <li class="task list-unstyled accordion-group">
+            <div class="task-header accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapse<?= $row1['id'] ?>">
+                    <input type="checkbox" class="task" <?php if ($row1['checked'] == 1): ?>checked <?php endif ?>name="<?= $row1['id'] ?>" value="1">
+                    <span class="task-name<?php if ($row1['checked'] == 1): ?> task-completed<?php endif ?>"><?= h($row1['name']) ?></span>
+                </a>
+            </div>
+            <div id="collapse<?= $row1['id'] ?>" class="task-descreption accordion-body collapse">
+                <div class="task-description accordion-inner">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="closingdate" class="control-label">〆切</label>
+                            <div class="">
+                                <input type="datetime-local" class="form-control" id="closingdate" placeholder="Closing date">
+                            </div>
+                            <label for="owner" class="control-label">担当</label>
+                            <div>
+                                <select>
                                     <option value="サンプル1">未定</option>
                                     <option value="サンプル2">せいの</option>
                                     <option value="サンプル3">にしむら</option>
                                 </select>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
-            </li>
-        <?php endforeach ?>
+            </div>
+        </li>
+<?php endforeach ?>
     </ul>
 
 
