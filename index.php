@@ -1,11 +1,10 @@
 <?php
-
-include_once 'get_all_task.inc';
-
-function h($str)
-{
-    return htmlspecialchars($str, ENT_QUOTES, "UTF-8");
-}
+  include_once 'get_all_task.inc';
+  
+  function h($str)
+  {
+      return htmlspecialchars($str, ENT_QUOTES, "UTF-8");
+  }
 
 ?>
 
@@ -63,8 +62,8 @@ function h($str)
 
 </head>
 <body>
-<?= $my_name ?>さんこんにちは。
-<form action="./" method="post">
+<p><?= $my_name ?>さんこんにちは。</p>
+<form id="addnewtask" action="./" method="post">
     <p>
         <label for="newtaskname">追加する項目:</label><input type="text" width="100" name="name" value="" id="newtaskname">
         <label for="newtaskowner">担当:</label>
@@ -86,6 +85,6 @@ function h($str)
         </li>
     <?php endforeach ?>
 </ul>
-<p style="margin-top:30px">※タスクのチェックと削除ができるようになりました※</p>
+<p style="margin-top:30px"></p>
 </body>
 </html>

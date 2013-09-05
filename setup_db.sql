@@ -3,7 +3,7 @@
 
 USE shared_tasks;
 
-DROP TABLE tasklist;
+DROP TABLE task;
 
 CREATE TABLE task
 (
@@ -14,7 +14,7 @@ CREATE TABLE task
 );
 CREATE UNIQUE INDEX unique_id ON task ( id );
 
-DROP TABLE userlist;
+DROP TABLE user;
 
 CREATE TABLE user
 (

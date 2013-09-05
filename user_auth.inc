@@ -1,15 +1,12 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: yoshinori
- * Date: 2013/08/11
- * Time: 21:36
- * To change this template use File | Settings | File Templates.
+ * User: massirohuyu
  */
-header("Content-type: text/html; charset=utf-8");
-$my_id = '';
-$my_name = '';
-$my_username = $_SERVER[ 'PHP_AUTH_USER' ];
+
+  header("Content-type: text/html; charset=utf-8");
+  $my_id = '';
+  $my_name = 'ゲスト';
+  $my_username = $_SERVER[ 'PHP_AUTH_USER' ];
 
   if($my_username){
     $my_info = $mysqli->prepare('SELECT id,name FROM user WHERE username = ?;');
@@ -17,7 +14,7 @@ $my_username = $_SERVER[ 'PHP_AUTH_USER' ];
     $my_info_flag = $my_info->execute();
     
     if (!$my_info_flag) {
-        die('ユーザ情報取得のクエリーが失敗しました。'.mysqli_error());
+        die('ユーザ情報の取得に失敗しました。'.mysqli_error());
     }
     
     $my_info->bind_result($my_id, $my_name);
